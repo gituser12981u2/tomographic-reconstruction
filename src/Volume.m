@@ -20,9 +20,11 @@ classdef Volume
                     'Volume requires at least one Slice.');
             end
 
-            z = [slices.ZPositions];
+            z = [slices.ZPosition];
             [sortedZ, order] = sort(z);
             sortedZ = sortedZ(:);
+            sortedSlices = slices(order);
+            sortedSlices = sortedSlices(:);
 
             if numel(sortedZ) > 1
                 dz = diff(sortedZ);
@@ -99,7 +101,7 @@ classdef Volume
         end
 
         function out = yExtent(obj)
-            out = obj.Slices(2).yExtent();
+            out = obj.Slices(1).yExtent();
         end
 
         function out = bounds(obj)
@@ -134,6 +136,7 @@ classdef Volume
             end
 
             sz = size(obj.Data);
+            fprintf('  Volume\n');
             fprintf('    Size:        [%d %d %d]\n', sz(1), sz(2), sz(3));
             fprintf('    SpacingXY:   [%.6g %.6g]\n', obj.SpacingXY(1), obj.SpacingXY(2));
             fprintf('    ZExtent:     [%.6g %.6g]\n', obj.ZPositions(1), obj.ZPositions(end));
@@ -147,51 +150,3 @@ classdef Volume
         end
     end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
